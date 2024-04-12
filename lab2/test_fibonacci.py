@@ -7,16 +7,16 @@ from fibonacci import fibonacci, process_number, get_input, write_output, main_l
 class TestFibonacciProgram(unittest.TestCase):
     
     def setUp(self):
-        # Save original stdout and stderr
+        # save original stdout and stderr
         self.original_stdout = sys.stdout
         self.original_stderr = sys.stderr
 
-        # Redirect stdout and stderr to StringIO
+        # redirect stdout and stderr to StringIO
         sys.stdout = StringIO()
         sys.stderr = StringIO()
 
     def tearDown(self):
-        # Restore original stdout and stderr
+        # restore original stdout and stderr
         sys.stdout = self.original_stdout
         sys.stderr = self.original_stderr
 
@@ -58,7 +58,7 @@ class TestFibonacciProgram(unittest.TestCase):
         sys.stderr = sys.__stderr__
 
     def test_main_logic_exit_codes(self):
-        # Test with valid input followed by 'exit'
+        # test with valid input followed by 'exit'
         input_stream = StringIO("10\nexit\n")
         with self.assertRaises(SystemExit) as cm:
             main_logic(input_stream, sys.stdout)
@@ -67,18 +67,18 @@ class TestFibonacciProgram(unittest.TestCase):
         self.assertIn("Fibonacci(10) = 55", output_content)
         self.assertIn("Exiting the program.", output_content)
 
-        # Reset streams for next test
+        # reset streams for next test
         sys.stdout = StringIO()
         sys.stderr = StringIO()
 
-        # Test with invalid input followed by 'exit'
+        # test with invalid input followed by 'exit'
         input_stream = StringIO("invalid\nexit\n")
         with self.assertRaises(SystemExit) as cm:
             main_logic(input_stream, sys.stdout)
-        self.assertNotEqual(cm.exception.code, 0)  # Expect an error, non-zero exit code
+        self.assertNotEqual(cm.exception.code, 0)  # expect an error, non-zero exit code
         output_content = sys.stdout.getvalue() + sys.stderr.getvalue()
         self.assertIn("Error: invalid literal for int() with base 10: 'invalid'", output_content)
-        self.assertIn("Exiting the program.", output_content)
+        self.assertIn("Exiting the program.", output_content) 
 
 if __name__ == '__main__':
     unittest.main()
