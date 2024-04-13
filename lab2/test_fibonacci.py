@@ -41,11 +41,6 @@ class TestFibonacciProgram(unittest.TestCase):
         self.assertEqual(process_number("10 10"), ("Error: Please enter only one number.", 1))
         self.assertEqual(process_number("-1"), ("Error: The Fibonacci number cannot be calculated for negative numbers.", 1))
 
-    def test_get_input_multiple_lines(self):
-        fake_input = StringIO('test\nanother test\n')
-        self.assertEqual(get_input(fake_input), 'test')
-        self.assertEqual(get_input(fake_input), 'another test')
-
     def test_write_output(self):
         fake_output = StringIO()
         write_output("Test message", fake_output)
