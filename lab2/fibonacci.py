@@ -19,7 +19,7 @@ def process_number(number):
             raise ValueError("Please enter only one number.")
         n = int(number)
         fib_number = fibonacci(n)
-        return f"Fibonacci({n}) = {fib_number}", 0
+        return str(fib_number), 0  
     except ValueError as e:
         return f"Error: {e}", 1
 
@@ -34,12 +34,8 @@ def write_output(message, output_stream=sys.stdout):
 
 def main_logic(input_stream=sys.stdin, output_stream=sys.stdout):
     exit_code = 0  # start with success exit code
-    while True:
-        line = get_input(input_stream)
-        if line == '':  
-            continue
-        if line.lower() == 'exit':
-            break
+    line = get_input(input_stream)
+    if line:  
         message, code = process_number(line)
         if code != 0:
             exit_code = code  # set to error code if any error occurs

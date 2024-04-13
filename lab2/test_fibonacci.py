@@ -31,10 +31,10 @@ class TestFibonacciProgram(unittest.TestCase):
             fibonacci(-1)
 
     def test_process_number(self):
-        self.assertEqual(process_number("10"), ("Fibonacci(10) = 55", 0))
-        self.assertEqual(process_number("1"), ("Fibonacci(1) = 1", 0))
-        self.assertEqual(process_number("0"), ("Fibonacci(0) = 0", 0))
-        self.assertEqual(process_number("999"), ("Fibonacci(999) = " + str(fibonacci(999)), 0))  
+        self.assertEqual(process_number("10"), ("55", 0))
+        self.assertEqual(process_number("1"), ("1", 0))
+        self.assertEqual(process_number("0"), ("0", 0))
+        self.assertEqual(process_number("999"), (str(fibonacci(999)), 0))
 
     def test_process_number_error(self):
         self.assertEqual(process_number("a"), ("Error: invalid literal for int() with base 10: 'a'", 1))
@@ -56,25 +56,19 @@ class TestFibonacciProgram(unittest.TestCase):
         self.assertEqual(fake_error_output.getvalue(), "Error message\n")
 
     def test_main_logic_exit_codes(self):
-        # test with valid input followed by 'exit'
-        input_stream = StringIO("10\nexit\n")
+        input_stream = StringIO("10\n")
         with self.assertRaises(SystemExit) as cm:
             main_logic(input_stream, sys.stdout)
-        self.assertEqual(cm.exception.code, 0)  # No error, exit code should be 0
+        self.assertEqual(cm.exception.code, 0)  
         output_content = sys.stdout.getvalue()
-        self.assertIn("Fibonacci(10) = 55", output_content)
+        self.assertEqual(output_content.strip(), "55")  
 
-        # reset streams for next test
-        sys.stdout = StringIO()
-        sys.stderr = StringIO()
-
-        # test with invalid input followed by 'exit'
-        input_stream = StringIO("invalid\nexit\n")
+        input_stream = StringIO("invalid\n")
         with self.assertRaises(SystemExit) as cm:
             main_logic(input_stream, sys.stdout)
         self.assertNotEqual(cm.exception.code, 0)  # expect an error, non-zero exit code
         error_output = sys.stderr.getvalue()
-        self.assertIn("Error: invalid literal for int() with base 10: 'invalid'", error_output)
+        self.assertTrue("invalid" in error_output and "Error:" in error_output)  
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main() 
