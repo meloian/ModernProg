@@ -26,27 +26,26 @@ def process_number(number):
 def get_input(input_stream):
     return input_stream.readline().strip()
 
-def write_output(message, output_stream, error=False):
-    if error:
+def write_output(message, output_stream=sys.stdout):
+    if "Error:" in message:
         print(message, file=sys.stderr)
     else:
-        output_stream.write(message + "\n")
+        output_stream.write(message + "\n") 
 
 def main_logic(input_stream=sys.stdin, output_stream=sys.stdout):
     exit_code = 0  # start with success exit code
-    output_stream.write("Enter a number to calculate the Fibonacci number or 'exit' to exit:\n")
     while True:
         line = get_input(input_stream)
+        if line == '':  
+            continue
         if line.lower() == 'exit':
-            write_output("Exiting the program.", output_stream)
             break
         message, code = process_number(line)
         if code != 0:
             exit_code = code  # set to error code if any error occurs
-        write_output(message, output_stream, error=code != 0)
-        output_stream.write("Enter the next number or 'exit' to finish:\n")
+        write_output(message, output_stream)
     
-    sys.exit(exit_code)  
+    sys.exit(exit_code)   
 
 if __name__ == "__main__":
     main_logic() 

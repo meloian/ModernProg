@@ -52,10 +52,8 @@ class TestFibonacciProgram(unittest.TestCase):
         self.assertEqual(fake_output.getvalue(), "Test message\n")
 
         fake_error_output = StringIO()
-        sys.stderr = fake_error_output
-        write_output("Error message", fake_error_output, error=True)
+        write_output("Error message", fake_error_output)
         self.assertEqual(fake_error_output.getvalue(), "Error message\n")
-        sys.stderr = sys.__stderr__
 
     def test_main_logic_exit_codes(self):
         # test with valid input followed by 'exit'
@@ -63,9 +61,8 @@ class TestFibonacciProgram(unittest.TestCase):
         with self.assertRaises(SystemExit) as cm:
             main_logic(input_stream, sys.stdout)
         self.assertEqual(cm.exception.code, 0)  # No error, exit code should be 0
-        output_content = sys.stdout.getvalue() + sys.stderr.getvalue()
+        output_content = sys.stdout.getvalue()
         self.assertIn("Fibonacci(10) = 55", output_content)
-        self.assertIn("Exiting the program.", output_content)
 
         # reset streams for next test
         sys.stdout = StringIO()
@@ -76,9 +73,8 @@ class TestFibonacciProgram(unittest.TestCase):
         with self.assertRaises(SystemExit) as cm:
             main_logic(input_stream, sys.stdout)
         self.assertNotEqual(cm.exception.code, 0)  # expect an error, non-zero exit code
-        output_content = sys.stdout.getvalue() + sys.stderr.getvalue()
-        self.assertIn("Error: invalid literal for int() with base 10: 'invalid'", output_content)
-        self.assertIn("Exiting the program.", output_content) 
+        error_output = sys.stderr.getvalue()
+        self.assertIn("Error: invalid literal for int() with base 10: 'invalid'", error_output)
 
 if __name__ == '__main__':
     unittest.main()
