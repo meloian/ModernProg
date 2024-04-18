@@ -8,5 +8,7 @@ typedef struct {
 
 void createAndDisplayAccountOnStack();
 void createAndDisplayAccountOnHeap();
+void modifyAccountValue(Account acc);  
+void modifyAccountReference(Account *acc);  
 
 #endif
