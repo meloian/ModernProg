@@ -2,7 +2,7 @@
 #include "../include/account.h"
 
 int main() {
-    createAndDisplayAccountOnStack();
-    createAndDisplayAccountOnHeap();
+    createAndDisplayAccountOnStack();  // work with stack memory
+    createAndDisplayAccountOnHeap();   // work with heap memory
     return 0;
 } 
