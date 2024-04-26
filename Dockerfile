@@ -21,12 +21,8 @@ COPY lab1 /app/lab1
 COPY lab2 /app/lab2
 COPY lab3 /app/lab3
 
-COPY .github /app/.github
-
-COPY .gitignore /app/
-
 RUN cd /app/lab4 && make all
 
 ENV NAME World
 
-CMD ["python3", "-m", "unittest", "discover", "-s", "/app/lab1", "-p", "test_*.py"] 
+CMD ["python3", "-m", "unittest", "discover", "-s", "/app/lab1", "-p", "test_*.py"]
