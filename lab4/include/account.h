@@ -12,4 +12,8 @@ void createAndDisplayAccountOnHeap();
 void modifyAccountValue(Account acc);  
 void modifyAccountReference(Account *acc);  
 
+void* custom_malloc(size_t size);
+void custom_free(void* ptr, size_t size);
+size_t get_current_heap_usage();
+
 #endif
