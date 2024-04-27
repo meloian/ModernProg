@@ -17,3 +17,11 @@ In the `createAndDisplayAccountOnStack` function, the object is created as a loc
 
 ### On the Heap
 In the `createAndDisplayAccountOnHeap` function, memory is allocated using `malloc`. An object created on the heap stays available after the function ends. It can exist even if the function has restrictions.
+
+## Testing Memory Allocation
+
+I've added a way to track memory in our code. This is important for making sure objects are placed correctly on the stack or heap.
+
+- **Stack Allocation Test (`test_account_on_stack`)**: Check how much memory is used before and after creating an object on the stack. If the object is correctly placed on the stack, the memory usage should not change. This is verified by checking that the heap usage difference (`delta`) is zero.
+
+- **Heap Allocation Test (`test_account_on_heap`)**: Check how much memory is used before and after an object is allocated on the heap using `custom_malloc`. The heap usage should increase by the size of the object. After freeing the object with `custom_free`, the heap usage should return to its original state. This shows the object was allocated and freed correctly, with no memory leaks.
