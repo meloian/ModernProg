@@ -15,5 +15,6 @@ void modifyAccountReference(Account *acc);
 void* custom_malloc(size_t size);
 void custom_free(void* ptr, size_t size);
 size_t get_current_heap_usage();
+void assert_heap_address(void *ptr);  // says the allocated memory address is the last known heap address.
 
 #endif

@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>  
 #include "../include/account.h"
 
 extern size_t get_current_heap_usage();  // declare external function to get heap usage
@@ -16,14 +17,19 @@ void test_account_on_stack() {
 }
 
 void test_account_on_heap() {
+    void *heap_end_before = sbrk(0);  // сapture the end of the heap before allocation 
     size_t initial_heap = get_current_heap_usage();
     Account *myAccount = custom_malloc(sizeof(Account));  // test account creation on heap
     assert(myAccount != NULL);
+    assert_heap_address(myAccount);  // verify the address is as expected
+    assert((char*)myAccount >= (char*)heap_end_before && (char*)myAccount < (char*)sbrk(0));  // verify within the heap 
+
     myAccount->id = 1;
     myAccount->balance = 1000.50;
     size_t final_heap = get_current_heap_usage();
     assert(final_heap == initial_heap + sizeof(Account));  // ensure increased heap usage
     assert(myAccount->id == 1 && myAccount->balance == 1000.50);  // verification
+
     custom_free(myAccount, sizeof(Account));
     assert(get_current_heap_usage() == initial_heap);  // ensure heap is back to initial after free
 }
@@ -47,4 +53,4 @@ int main() {
     test_modify_account_reference();
     printf("All tests passed successfully!\n");
     return 0;
-} 
+}
