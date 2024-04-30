@@ -1,0 +1,23 @@
+name: Lab 4 Build and Test
+
+on:
+  push:
+    paths:
+      - 'lab4/**'
+  pull_request:
+    paths:
+      - 'lab4/**'
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image for Lab 4
+        run: docker build ./lab4 -t lab4-application
+
+      - name: Run Docker container
+        run: docker run --rm lab4-application 
