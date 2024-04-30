@@ -18,4 +18,4 @@ COPY lab3 /app/lab3
 
 ENV NAME World
 
-CMD ["python3", "-m", "unittest", "discover", "-s", "/app/lab1", "-p", "test_*.py"] 
+CMD ["python3", "-m", "unittest", "discover", "-s", "/app", "-p", "test_*.py"]

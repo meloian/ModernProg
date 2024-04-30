@@ -1,4 +1,4 @@
-name: Docker Build
+name: Docker Build and Test
 
 on: [push, pull_request]
 
@@ -15,5 +15,11 @@ jobs:
       - name: Build Docker image
         run: docker build . -t my-application
         
-      - name: Run Docker container
+      - name: Push to Docker Registry
+        run: docker push my-application:latest
+
+      - name: Pull and Run Docker container
         run: docker run --rm my-application
+
+      - name: Execute Tests
+        run: docker run --rm my-application python3 -m unittest discover -s /app -p 'test_*.py' 
