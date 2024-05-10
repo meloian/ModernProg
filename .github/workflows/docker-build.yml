@@ -29,3 +29,6 @@ jobs:
 
       - name: Execute Tests
         run: docker run --rm meloian/modern_prog:latest python3 -m unittest discover -s /app -p 'test_*.py' 
+
+      - name: List files in /app directory
+        run: docker run --rm meloian/modern_prog:latest ls -R /app

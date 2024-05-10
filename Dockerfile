@@ -18,4 +18,6 @@ COPY lab3 /app/lab3
 
 ENV NAME World
 
-CMD ["python3", "-m", "unittest", "discover", "-s", "/app", "-p", "test_*.py"]
+COPY run_tests.sh /app/
+RUN chmod +x /app/run_tests.sh  # Переконатися, що скрипт мож
+CMD ["/app/run_tests.sh"] 
