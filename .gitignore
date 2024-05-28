@@ -2,3 +2,10 @@ __pycache__
 *.docx 
 *.exe 
 .vscode
+*.zip
+*.tfstate
+*.tfstate.*
+.terraform/
+terraform.tfstate.backup  
+venv/
+package/
