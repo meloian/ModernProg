@@ -2,7 +2,7 @@ resource "aws_lambda_function" "my_lambda" {
   function_name = "my_lambda"
   handler       = "index.handler"
   runtime       = "python3.8"
-  role          = "arn:aws:iam::000000000000:role/lambda-basic-execution"
+  role          = var.iam_role_arn
 
   filename = "${path.module}/lambda_function_payload.zip"
   source_code_hash = filebase64sha256("${path.module}/lambda_function_payload.zip")
