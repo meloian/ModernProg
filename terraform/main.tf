@@ -9,6 +9,7 @@ provider "aws" {
     lambda = "http://localhost:4566"
     sts    = "http://localhost:4566"
     iam    = "http://localhost:4566"
+    sns    = "http://localhost:4566"
   }
 }
 
@@ -25,4 +26,9 @@ module "lambda" {
   start_bucket = module.s3.start_bucket_name
   finish_bucket = module.s3.finish_bucket_name
   iam_role_arn = module.iam.lambda_execution_role_arn  
+} 
+
+module "sns" {
+  source = "./modules/sns"
+  lambda_function_arn = module.lambda.lambda_function_arn
 } 
