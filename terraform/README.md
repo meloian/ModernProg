@@ -1,14 +1,8 @@
-# Laboratory Work
+# Description
 
-## Status
+This project uses Terraform, AWS services, and Localstack for local development and testing. The setup includes:
 
-🚧 This lab is still under development. Not all features are fully implemented and there may be some bugs.
-
-## Description
-
-This folder contains the code for a laboratory work in progress. 
-
-## Remaining Tasks
-
-- [x] Complete main feature implementation.
-- [ ] Final bug checks.
+- **S3 Buckets:** For storing files.
+- **Lambda Functions:** For processing files and handling messages.
+- **IAM Roles:** For providing necessary permissions to the resources.
+- **SNS:** For sending notifications to Lambda functions.
